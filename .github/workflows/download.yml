@@ -1,0 +1,21 @@
+name: Download LoL Data
+on:
+  workflow_dispatch:
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install gdown
+        run: pip install gdown
+      - name: Download binaries.tar.gz
+        run: gdown --fuzzy 1HHbYQmv12SQ_xUKSnKMVI6RVyX3Z8hPf -O binaries.tar.gz
+      - name: Download benchmarks_lol.tar.gz
+        run: gdown --fuzzy 1wVYCgee2k7_1JdmV4o6Q4sIgDpoCkAcn -O benchmarks_lol.tar.gz
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: lol-data
+          name: LoL Data Files
+          files: |
+            binaries.tar.gz
+            benchmarks_lol.tar.gz
